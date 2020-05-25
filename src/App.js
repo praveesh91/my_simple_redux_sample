@@ -1,45 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux'
 
-import { connect } from 'react-redux';
+import Counter from './components/Counter'
+import store from './redux/store'
 
-import { activateGeod, closeGeod } from './redux';
-
-// App.js
-export class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>{this.props.geod.title || 'Hello World!'}</h1>
-
-        {this.props.geod.title ? (
-          <button onClick={this.props.closeGeod}>Exit Geod</button>
-        ) : (
-          <button
-            onClick={() =>
-              this.props.activateGeod({ title: 'I am a geo dude!' })
-            }
-          >
-            Click Me!
-          </button>
-        )}
-      </div>
-    );
-  }
+function App() {
+  return (
+    <Provider store={store}>    
+      <Counter />
+    </Provider>
+  );
 }
 
-// AppContainer.js
-const mapStateToProps = state => ({
-  geod: state.geod,
-});
-
-const mapDispatchToProps = {
-  activateGeod,
-  closeGeod,
-};
-
-const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
-
-export default AppContainer;
+export default App;
